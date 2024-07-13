@@ -20,7 +20,10 @@ html{
     height: 100vh;
     background-color: var(--main-background-color);
     display: grid;
-    place-items: center;
+    place-content: center;
+    gap: 1rem;
+
+    font-size: 2rem;
 }
 
 .main .container{
@@ -35,5 +38,24 @@ html{
 
 .main .container .cell{
     border: 0.2rem solid var(--main-container-color);
+    display: grid;
+    place-items: center;
 }
+
+.options{
+    /* border: 2px solid red; */
+}
+
+.main .options{
+ display: flex;
+ gap: 2rem;
+}
+.main .options .option{
+    flex: 1;
+    border: 0.1rem solid var(--main-symbol-color);
+    padding: 0 0.5rem 0 0.5rem;
+    border-radius: 0.5rem;
+}
+
+
 
