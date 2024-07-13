@@ -1,0 +1,39 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --main-background-color: #5eead4;
+    --main-container-color: #0d9488;
+    --main-symbol-color: #18181b;
+    --color-white: #fff;
+}
+
+html{
+    font-size: 10px;
+}
+
+.main{
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--main-background-color);
+    display: grid;
+    place-items: center;
+}
+
+.main .container{
+    width: 30rem;
+    height: 30rem;
+    
+
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
+}
+
+.main .container .cell{
+    border: 0.2rem solid var(--main-container-color);
+}
+
