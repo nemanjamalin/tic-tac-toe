@@ -49,7 +49,7 @@ let game = (function(){
         let score = 0;
         const columns = 0;
         const rows = 1;
-        const leftDL = 'LEFT';
+        const diagonals = 'diagonal';
 
         //setters
 
@@ -75,8 +75,8 @@ let game = (function(){
         const checkWinnerRows = function(){
            return checkMatchingPairs(rows);
         }
-        const checkWinnerLeftDL = function(){
-            return checkMatchingPairs(leftDL);
+        const checkWinnerDL = function(){
+            return checkMatchingPairs(diagonals);
         }
         function checkMatchingPairs(position){                                                                                                                                                                                                                      
             const counter = {
@@ -86,7 +86,7 @@ let game = (function(){
                 4:0
             }
 
-            if(position === "LEFT"){
+            if(position === "diagonal"){
                 pairs.forEach((pair)=>{
                     counter[Number(pair[0][0]) + Number(pair[0][1])]++;
                 });
@@ -103,12 +103,13 @@ let game = (function(){
            
             if(counter[0] > 2 || counter[1] > 2 || counter[2] > 2) return true; // check rows/columns
             if(counter[0] === 1 && counter[2] === 1 && counter[4] === 1) return true;
+            if(counter[2] === 3) return true;
             return false
         }
        
 
         const isWinner = function(){
-            if(checkWinnerRows() || checkWinnerColumns() || checkWinnerLeftDL()) return true;
+            if(checkWinnerRows() || checkWinnerColumns() || checkWinnerDL()) return true;
             return false;
         }
 
