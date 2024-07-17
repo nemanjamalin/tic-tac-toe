@@ -23,7 +23,7 @@ let game = (function(){
         const pair = cell.dataset.cordinate.split();
         if(cell.innerHTML === ""){
             cell.innerHTML = `<h1>${currentPlayer.getSymbol()}</h1>`;
-            currentPlayer.insertPair(pair);
+            console.log(currentPlayer.insertPair(pair));
             checkWinner(currentPlayer);
             switchCurrentPlayer();
         }
@@ -49,6 +49,7 @@ let game = (function(){
         let score = 0;
         const columns = 0;
         const rows = 1;
+        const leftDL = 'LEFT';
 
         //setters
 
@@ -74,25 +75,40 @@ let game = (function(){
         const checkWinnerRows = function(){
            return checkMatchingPairs(rows);
         }
-
-        function checkMatchingPairs(position = ""){                                                                                                                                                                                                                      
+        const checkWinnerLeftDL = function(){
+            return checkMatchingPairs(leftDL);
+        }
+        function checkMatchingPairs(position){                                                                                                                                                                                                                      
             const counter = {
                 0:0,
                 1:0,
                 2:0,
                 4:0
-            }                                                                                                                                                                                             
+            }
+
+            if(position === "LEFT"){
+                pairs.forEach((pair)=>{
+                    counter[Number(pair[0][0]) + Number(pair[0][1])]++;
+                });
+            }
+
+            if(typeof position === "number"){
                 pairs.forEach((pair)=>{
                     counter[pair[0][position]]++;
+                    
                 });
-                if(counter[0] > 2 || counter[1] > 2 || counter[2] > 2) return true; // check rows/columns
-                // if(counter[0] ===1 && counter[2] ===1 && counter[4] === 1) return true;
-                 return false
+            }
+            
+          
+           
+            if(counter[0] > 2 || counter[1] > 2 || counter[2] > 2) return true; // check rows/columns
+            if(counter[0] === 1 && counter[2] === 1 && counter[4] === 1) return true;
+            return false
         }
        
 
         const isWinner = function(){
-            if(checkWinnerRows() || checkWinnerColumns()) return true;
+            if(checkWinnerRows() || checkWinnerColumns() || checkWinnerLeftDL()) return true;
             return false;
         }
 
