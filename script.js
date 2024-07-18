@@ -9,16 +9,18 @@ let game = (function(){
 
     //cahce DOM
     const gameContainer = document.querySelector('.container');
+    const startingPlayerOptions = document.querySelector('.options');
     const optionX = document.querySelector('.playerX');
     const optionO = document.querySelector('.playerO');
 
-
     //bind events
    gameContainer.addEventListener('click',renderSymbol);
+   startingPlayerOptions.addEventListener('click',chooseStartingPlayer);
 
 
    //events
     function renderSymbol(event){
+        startingPlayerOptions.removeEventListener("click", chooseStartingPlayer); // once game started (symbol is placed) prevent players from changing current player on their own
         const cell = event.target;
         const pair = cell.dataset.cordinate.split();
         if(cell.innerHTML === ""){
@@ -26,6 +28,19 @@ let game = (function(){
             console.log(currentPlayer.insertPair(pair));
             checkWinner(currentPlayer);
             switchCurrentPlayer();
+        }
+    }
+
+    function chooseStartingPlayer(event){
+        let option = event.target;
+        if(option.innerHTML === "X"){
+            optionX.classList.add('active');
+            optionO.classList.remove('active');
+            currentPlayer = playerX;
+        }else{
+            optionX.classList.remove('active');
+            optionO.classList.add('active');
+            currentPlayer = playerO;
         }
     }
 
