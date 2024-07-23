@@ -4,6 +4,10 @@ let game = (function(){
     playerX  = createPlayer('X');
     playerO  = createPlayer('O');
 
+    //initialize default names
+    playerX.setName('player1');
+    playerO.setName('player2');
+
     //currentPlayer
     let currentPlayer = playerX;
 
@@ -12,10 +16,12 @@ let game = (function(){
     const startingPlayerOptions = document.querySelector('.options');
     const optionX = document.querySelector('.playerX');
     const optionO = document.querySelector('.playerO');
+    const nameInput = document.querySelector('.names');
 
     //bind events
    gameContainer.addEventListener('click',renderSymbol);
    startingPlayerOptions.addEventListener('click',chooseStartingPlayer);
+   nameInput.addEventListener('keydown',setPlayerName);
 
 
    //events
@@ -51,9 +57,28 @@ let game = (function(){
     function checkWinner(currentPlayer){
         if(currentPlayer.isWinner()){
             currentPlayer.increaseScore();
-            alert(`${currentPlayer.getSymbol()} is a winner!`);
+            alert(`${currentPlayer.getName()} is a winner!`);
             gameContainer.removeEventListener("click", renderSymbol); 
         }
+    }
+
+    function setPlayerName(event){
+        const keyCode = event.keyCode;
+        const rightKeyCode = keyCode === 13;
+        const playerNameInput = event.target;
+        const name = playerNameInput.value || playerNameInput.placeholder;
+
+
+        if(playerNameInput.classList.contains('nameX') && rightKeyCode){
+            playerX.setName(name);
+            playerNameInput.blur();
+            playerNameInput.classList.add('non-editable');
+        } 
+        if(playerNameInput.classList.contains('nameO') && rightKeyCode){
+            playerO.setName(name);
+            playerNameInput.blur();
+            playerNameInput.classList.add('non-editable');
+        } 
     }
 
     //create player object
@@ -65,6 +90,7 @@ let game = (function(){
         const columns = 0;
         const rows = 1;
         const diagonals = 'diagonal';
+        let playerName;
 
         //setters
 
@@ -76,10 +102,16 @@ let game = (function(){
             return pairs;
         }
 
+        const setName = function(name){
+            playerName = name;
+        }
+
         //getters
         const getScore = () => score;
 
         const getSymbol = () => symbol;
+
+        const getName = () => playerName;
 
         //conditionals
 
@@ -128,7 +160,7 @@ let game = (function(){
             return false;
         }
 
-        return {getSymbol,insertPair, getScore, increaseScore, isWinner}
+        return {getSymbol,insertPair, getScore, increaseScore, isWinner,setName,getName}
 
     }
 

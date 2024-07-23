@@ -21,6 +21,10 @@ html{
     transition: 0.3s;
 }
 
+.non-editable{
+    pointer-events: none;
+}
+
 .main{
     width: 100vw;
     height: 100vh;
@@ -30,6 +34,10 @@ html{
     gap: 1rem;
 
     font-size: 2rem;
+}
+
+.main > div{
+    max-width: 30rem;
 }
 
 .main .container{
@@ -63,8 +71,19 @@ html{
     border-radius: 0.5rem;
 }
 
-.main .options .option:hover{
-    cursor: pointer;
+.main .names{
+    display: flex;
+    gap: 3rem;
+}
+input{
+    flex: 1;
+    max-width: 13.5rem;
+    height: 3rem;
+}
+
+.main p{
+    position: relative;
+    right: 3rem;
 }
 
 
