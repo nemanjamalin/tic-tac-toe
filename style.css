@@ -43,7 +43,6 @@ html{
 .main .container{
     width: 30rem;
     height: 30rem;
-    
 
     display: grid;
     grid-template-columns: repeat(3,1fr);
@@ -84,6 +83,12 @@ input{
 .main p{
     position: relative;
     right: 3rem;
+}
+
+.resetGame{
+    max-width: 30rem;
+    background-color: var(--main-symbol-color);
+    color: var(--color-white);
 }
 
 
