@@ -166,12 +166,16 @@ let game = (function(){
                 0:0,
                 1:0,
                 2:0,
-                4:0
+                4:0,
+                'leftMatch':0,
+                'rightMatch':0
             }
 
             if(position === "diagonal"){
                 pairs.forEach((pair)=>{
                     counter[Number(pair[0][0]) + Number(pair[0][1])]++;
+                    if(Number(pair[0][0]) + Number(pair[0][1]) === 2) counter['rightMatch']++;
+                    if(Number(pair[0][0]) === Number(pair[0][1])) counter['leftMatch']++;
                 });
             }
 
@@ -185,8 +189,8 @@ let game = (function(){
           
            
             if(counter[0] > 2 || counter[1] > 2 || counter[2] > 2) return true; // check rows/columns
-            if(counter[0] === 1 && counter[2] === 1 && counter[4] === 1) return true;
-            if(counter[2] === 3) return true;
+            if(counter['leftMatch'] === 3) return true;
+            if(counter['rightMatch'] === 3) return true;
             return false
         }
        
